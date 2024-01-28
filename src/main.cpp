@@ -38,37 +38,19 @@ string getRootPage() {
     webpage += "</body>";
     webpage += "</html>";
     return webpage;
-    /*
-  char page[300];
-  int count = sprintf(page, "\
-<!DOCTYPE html>\n\
-<html>\n\
-  <head>\n\
-    <title>Sixth Webpage</title>\n\
-  </head>\n\
-  <body>\n\
-    <h1>Your Name:</h1>\n\
-		<form action='/' method='POST'>\n\
-      <input type='text' name='lcdout'>\n\
-      <input type='submit' value='Show on LCD'>\n\
-		</form>\n\
-  </body>\n\
-</html>\n");
-  printf("%d\n", count);
-  return page;
-     */
+
 }
 
 void handleLCD() {
     printf("handleLCD\n");
 
-    const char* lcdString = server.gibWert("lcdout");
-    printf("%s\n", server.gibWert("Content-Length")); // I dont know why but this needs to be there. Even if it does nothing
+    const char *lcdString = server.gibWert("lcdout");
+    printf("%s\n",
+           server.gibWert("Content-Length")); // I dont know why but this needs to be there. Even if it does nothing
     printf("%s\n", lcdString);
 
 
-
-    if(lcdString){
+    if (lcdString) {
         lcd.clear();
         lcd.cursorpos(0);
         lcd.printf("Hallo %-10s", lcdString);
@@ -77,38 +59,32 @@ void handleLCD() {
     server.send(200, "text/html", getRootPage());
 
 
-
-
 }
 
 void handleButton() {
     printf("handleButton\n");
-    const char* ledData = server.gibWert("buttonout");
-    printf("%s\n", server.gibWert("Content-Length")); // I dont know why but this needs to be there. Even if it does nothing
+    const char *ledData = server.gibWert("buttonout");
+    printf("%s\n",
+           server.gibWert("Content-Length")); // I dont know why but this needs to be there. Even if it does nothing
     printf("LED Data: %s\n", ledData);
 
 
-    char* indexStr = (strstr(ledData, "="));
+    char *indexStr = (strstr(ledData, "="));
     char index;
-    if(indexStr!=nullptr){
-        index = *(indexStr+1);
-    }else{
+    if (indexStr != nullptr) {
+        index = *(indexStr + 1);
+    } else {
         index = *ledData;
     }
     printf("LED index: %c\n", index);
 
-    if(isdigit(index)){
-        int indexInt = (int)index - 48;
+    if (isdigit(index)) {
+        int indexInt = (int) index - 48;
         printf("LED index as int: %d\n", indexInt);
-        if(indexInt>= 0 && indexInt <=3){
+        if (indexInt >= 0 && indexInt <= 3) {
             led = led ^ (1 << indexInt);
         }
     }
-
-
-
-
-
 
 
     server.send(200, "text/html", getRootPage());
@@ -117,8 +93,6 @@ void handleButton() {
 
 void handleRoot() {
     printf("handleRoot\n");
-
-
 
 
     server.send(200, "text/html", getRootPage());
