@@ -14,4 +14,6 @@ Der Code hat an ein paar Stellen (insbesondere bei den LEDs) ein paar Besonderhe
 Ich weiß auch nicht genau warum und wieso aber so funktioniert es.
 Die Lib von Jack Hansdampf ist eben nicht zu 100 % perfekt.
 
+Das Projekt kann sowohl in Keil Studio als auch mit PlatformIO geöffnet werden.
+
 Gemacht von Leo
