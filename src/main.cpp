@@ -69,7 +69,7 @@ void handleButton() {
     printf("LED Data: %s\n", ledData);
 
 
-    char *indexStr = (strstr(ledData, "="));
+    const char *indexStr = strstr(ledData, "=");
     char index;
     if (indexStr != nullptr) {
         index = *(indexStr + 1);
